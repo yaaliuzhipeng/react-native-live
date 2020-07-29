@@ -1,22 +1,22 @@
-package com.reactlibrary;
+package com.haxifang;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 
-public class LiveModule extends ReactContextBaseJavaModule {
+public class TencentLiveModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
 
-    public LiveModule(ReactApplicationContext reactContext) {
+    public TencentLiveModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
     }
 
     @Override
     public String getName() {
-        return "Live";
+        return "TencentLive";
     }
 
     @ReactMethod
