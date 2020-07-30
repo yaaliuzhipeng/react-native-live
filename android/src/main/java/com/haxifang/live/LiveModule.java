@@ -1,12 +1,17 @@
 package com.haxifang.live;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 public class LiveModule extends ReactContextBaseJavaModule {
-    private static ReactApplicationContext reactApplicationContext;
-    private static ReactContext reactContext;
+    public static ReactApplicationContext reactApplicationContext;
+    public static ReactContext reactContext;
     private LiveManager _liveManager;
 
     public LiveModule(ReactApplicationContext context){
@@ -36,8 +41,8 @@ public class LiveModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void startLivePush(String url){
-        _liveManager.startLivePush(url);
+    public void startPush(String url){
+        _liveManager.startPush(url);
     }
 
     @ReactMethod
@@ -47,7 +52,7 @@ public class LiveModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void stopLivePush(){
-        _liveManager.stopLivePush();
+        _liveManager.stopPush();
     }
 
     @ReactMethod
@@ -105,25 +110,26 @@ public class LiveModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setLicence(String licenceUrl,String licenceKey) {
         // 初始化腾讯直播 SDK 方法
-        LivePullManager.setLicence(mContext, licenceUrl, licenceKey);
+        Log.i("TAG", "setLicence: 设置license");
+        _liveManager.setLicence(reactContext, licenceUrl, licenceKey);
     }
 
     @ReactMethod
     public void startPull(String url, int type) {
         // 开始直播拉流方法
-        LivePullManager.startPull(url,type);
+        _liveManager.startPull(url,type);
     }
 
     @ReactMethod
     public void stopPull() {
         // 停止直播拉流方法
-        LivePullManager.stopPull();
+        _liveManager.stopPull();
     }
 
     @ReactMethod
     public void restPull() {
         // 恢复直播拉流方法
-        LivePullManager.restPull();
+        _liveManager.restPull();
     }
 }
 

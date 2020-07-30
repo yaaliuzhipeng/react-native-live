@@ -1,4 +1,4 @@
-package com.haxifang;
+package com.haxifang.live;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +24,7 @@ public class TencentLivePackage implements ReactPackage {
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Arrays.<ViewManager>asList(
-                new LivePullView(reactContext),
+                new LivePullView(),
                 new LivePushView(reactContext)
         );
     }

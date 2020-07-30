@@ -1,7 +1,7 @@
 package com.haxifang.live;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
+import android.util.Log;
 
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
@@ -12,18 +12,22 @@ public class LivePullView extends SimpleViewManager {
 
     public static final String REACT_CLASS = "LivePullView";
 
-
-    @NonNull
     @Override
     public String getName() {
         return REACT_CLASS;
     }
 
-    @NonNull
     @Override
-    protected TXCloudVideoView createViewInstance(@NonNull final ThemedReactContext reactContext) {
+    protected TXCloudVideoView createViewInstance(final ThemedReactContext reactContext) {
 
-        // 创建并初始化好直播组件后将其注册到直播控制器
-        return LivePullManager.initVideoView(reactContext);
+        LiveManager shared = LiveManager.getInstance();
+        TXCloudVideoView pullview = new TXCloudVideoView(reactContext);
+        shared._player = new TXLivePlayer(reactContext);
+        shared._player.setPlayerView(pullview);
+        shared._pullview = pullview;
+        LivePullEvents listener = new LivePullEvents();
+        shared._player.setPlayListener(listener);
+        Log.i("TAG", "createViewInstance: 创建拉流view");
+        return pullview;
     }
 }

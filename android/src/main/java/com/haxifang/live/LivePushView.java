@@ -33,8 +33,8 @@ public class LivePushView extends SimpleViewManager<TXCloudVideoView> {
         shared._pusher = new TXLivePusher(reactContext);
         shared._pusher.setConfig(shared._config);
         shared._pushview = videoView;
-        shared._pusher.setPushListener(new LivePushEvents(mCallerContext));
-        shared.startPushPreview();
+        shared._pusher.setPushListener(new LivePushEvents());
+        shared.preview();
 
         return videoView;
     }

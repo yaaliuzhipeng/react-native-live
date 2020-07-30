@@ -100,6 +100,7 @@ const PermissionGrantView = (props) => {
                     case RESULTS.GRANTED:
                         setmicrostatus(GRANT);
                         setmicrocolor(GREEN);
+                        props.callback(); //关闭权限检查view
                         break;
                     case RESULTS.DENIED:
                         request(PERMISSIONS.ANDROID.RECORD_AUDIO)
@@ -118,6 +119,7 @@ const PermissionGrantView = (props) => {
                             .then(() => {
                                 
                                 if (camerastatus == GRANT && microstatus == GRANT) {
+                                    props.callback(); //关闭权限检查view
                                 }
                             });
                         break;
@@ -126,6 +128,7 @@ const PermissionGrantView = (props) => {
                         setmicrocolor(BAD);
                         
                         if (camerastatus == GRANT && microstatus == GRANT) {
+                            props.callback(); //关闭权限检查view
                         }
                         break;
                 }

@@ -12,3 +12,7 @@ export enum VOICETYPE {
     heavy_machine,
     ethereal
 }
+export enum LIVE_TYPE {
+    RTMP = 0,
+    FLV = 1
+}

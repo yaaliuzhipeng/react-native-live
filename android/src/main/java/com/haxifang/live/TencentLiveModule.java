@@ -1,4 +1,4 @@
-package com.haxifang;
+package com.haxifang.live;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;

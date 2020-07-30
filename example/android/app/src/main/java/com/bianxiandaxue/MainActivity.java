@@ -1,4 +1,4 @@
-package com.example;
+package com.bianxiandaxue;
 
 import com.facebook.react.ReactActivity;
 

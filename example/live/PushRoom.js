@@ -4,14 +4,15 @@ import { LivePullManager, LivePushManager, LivePushView, LivePullView } from 're
 const { width: sw, height: sh } = Dimensions.get('window');
 
 import PermissionGrantView from './PermissionGrantView';
-const PushURL = "rtmp://bxdx-livepush.haxibiao.cn/live/u8l5?txSecret=85d30af5133e222e92b3c8907db5b5df&txTime=5F212A44";
+const PushURL = "rtmp://bxdx-livepush.haxibiao.cn/live/u8l8?txSecret=3f16f36bab5e68b2d4f7f81d0c7be011&txTime=5F238752";
 
 export default function PushRoom() {
 
-    const [showPull, setshowpull] = useState(false);
+    const [showPush, setshowpush] = useState(true);
+    const [state,setstate] = useState("未开始");
 
-    const __showPullCallback = () => {
-        setshowpull(true)
+    const __showPushCallback = () => {
+        setshowpush(true)
         LivePushManager.preview()
     }
 
@@ -22,18 +23,27 @@ export default function PushRoom() {
     }
 
     const startPush = () => {
+        setstate("开始推流")
         LivePushManager.startPush(PushURL)
     }
 
     return (
         <>
             {
-                showPull ? (
+                showPush ? (
                     <LivePushView style={{ height: sh, width: sw }} />
                 ) : (
-                        <PermissionGrantView callback={__showPullCallback} />
+                        <PermissionGrantView callback={__showPushCallback} />
                     )
             }
+            <View
+                style={{ position: 'absolute', bottom: sh * 0.3, right: 15 }}
+                onPress={beauty}>
+                <View style={{ paddingHorizontal: 10, paddingVertical: 5, borderRadius: 12, overflow: 'hidden', backgroundColor: '#ffffffcc' }}>
+        <Text>{state}</Text>
+                </View>
+
+            </View>
             <Pressable
                 style={{ position: 'absolute', bottom: sh * 0.1, right: 15 }}
                 onPress={beauty}>
@@ -54,3 +64,5 @@ export default function PushRoom() {
         </>
     )
 }
+
+

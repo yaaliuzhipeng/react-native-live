@@ -1,7 +1,12 @@
 package com.haxifang.live;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.Choreographer;
+import android.view.View;
 
+import com.tencent.rtmp.TXLiveBase;
+import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.TXLivePushConfig;
 import com.tencent.rtmp.TXLivePusher;
 import com.tencent.rtmp.ui.TXCloudVideoView;
@@ -26,6 +31,122 @@ public class LiveManager {
     public TXLivePusher _pusher;
     public TXLivePushConfig _config;
     public TXCloudVideoView _pushview;
+    public TXCloudVideoView _pullview;
+    public TXLivePlayer _player;
+
+    /**==============================
+     *
+     *  拉流部分
+     *
+     *  ==============================
+     */
+    // 初始化腾讯直播 SDK License 授权方法
+    public void setLicence(Context context, String licenceUrl, String licenceKey) {
+        TXLiveBase.getInstance().setLicence(context, licenceUrl, licenceKey);
+    }
+
+    // 控制直播组件开始拉流方法
+    public void startPull(final String url, final int type) {
+        if(_player == null){
+            // 直播组件未注册，抛出异常
+        } else {
+            // 开始播放
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    LiveModule.reactContext.getCurrentActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.i(TAG, "run: 拉流地址"+url+"拉流类型: "+type);
+                            _player.startPlay(url, type);
+                            manuallyLayoutChildren();
+                            setupLayoutHack();
+                        }
+                    });
+                }
+            }).start();
+
+        }
+    }
+
+    // 控制直播组件停止拉流方法
+    public void stopPull() {
+
+        // 暂停播放
+        if(_player != null && _pullview != null){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    LiveModule.reactContext.getCurrentActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            _player.stopPlay(true);
+                            _pullview.onDestroy();
+                            // 调用通知 RN 刷新组件状态
+                            manuallyLayoutChildren();
+                            setupLayoutHack();
+                        }
+                    });
+                }
+            }).start();
+        }
+
+    }
+
+    // 控制直播组件恢复拉流方法
+    public void restPull() {
+
+        // 暂停播放
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                LiveModule.reactContext.getCurrentActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        _player.resume();
+                        // 调用通知 RN 刷新组件状态
+                        manuallyLayoutChildren();
+                        setupLayoutHack();
+                    }
+                });
+            }
+        }).start();
+
+    }
+
+    // for fix addView not showing ====
+    private void setupLayoutHack() {
+        Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
+            // 这个事件很关键，不然不能触发再次渲染，让 view 在RN里渲染成功!!
+            @Override
+            public void doFrame(long frameTimeNanos) {
+                manuallyLayoutChildren();
+                _pullview.getViewTreeObserver().dispatchOnGlobalLayout();
+                Choreographer.getInstance().postFrameCallback(this);
+            }
+        });
+    }
+
+    // 这个函数很关键，不然不能触发再次渲染，让 view 在RN里渲染成功!!
+    private void manuallyLayoutChildren() {
+        for (int i = 0; i < _pullview.getChildCount(); i++) {
+            View child = _pullview.getChildAt(i);
+            child.measure(View.MeasureSpec.makeMeasureSpec(_pullview.getMeasuredWidth(), View.MeasureSpec.EXACTLY),
+                    View.MeasureSpec.makeMeasureSpec(_pullview.getMeasuredHeight(), View.MeasureSpec.EXACTLY));
+            child.layout(0, 0, child.getMeasuredWidth(), child.getMeasuredHeight());
+        }
+    }
+
+
+
+    /**==============================
+     *
+     *  推流部分
+     *
+     *  ==============================
+     */
 
     /**
      * 启动摄像头预览
@@ -47,8 +168,12 @@ public class LiveManager {
      * 启动推流
      */
     public void startPush(String url) {
+        Log.i(TAG, "startPush: 调用推流");
         if(this._pusher != null){
+            Log.i(TAG, "startPush: pusher不为null");
             this._pusher.startPusher(url);
+        }else{
+            Log.i(TAG, "startPush: pusher为null");
         }
     }
 

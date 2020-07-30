@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, Text, View, TouchableOpacity, Pressable, Button, Dimensions } from 'react-native';
-import { LivePullManager, LivePushManager, LivePushView, LivePullView } from 'react-native-live';
+import { LivePullManager, LivePushManager, LivePushView, LivePullView, LIVE_TYPE } from 'react-native-live';
 const { width: sw, height: sh } = Dimensions.get('window');
 
-const URL = "rtmp://bxdx-livepull.haxibiao.cn/live/u8l5"
+const URL = "rtmp://bxdx-livepull.haxibiao.cn/live/u8l8"
 
 export default function PullRoom() {
 
     const startPull = () => {
-        LivePullManager.startPull(URL)
+        LivePullManager.startPull(URL,LIVE_TYPE.RTMP)
     }
 
     return (
