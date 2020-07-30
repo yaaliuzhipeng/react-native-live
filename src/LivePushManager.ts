@@ -31,6 +31,7 @@ var LiveModule: {
     setBeautyLevel: (level: number) => void,
     setWhitenessLevel: (level: number) => void,
     setRuddinessLevel: (level: number) => void;
+    setPushOrientation: (isPortrait: boolean) => void,
 };
 
 var listener: NativeEventEmitter; //事件接收器
@@ -49,6 +50,7 @@ var setBeautyLevel: (level: number) => void;
 var setWhitenessLevel: (level: number) => void;
 var setRuddinessLevel: (level: number) => void;
 var setManualFocus: (enabled: boolean) => void;
+var setPushOrientation:(isPortrait: boolean) => void;
 
 //创建监听事件
 var subscribe: (event: keyof EVENT_TYPE, callback: (result: any) => void) => EmitterSubscription;
@@ -115,6 +117,10 @@ setWhitenessLevel = (level: number) => {
 setRuddinessLevel = (level: number) => {
     LiveModule.setRuddinessLevel(level);
 };
+
+setPushOrientation = (isPortrait: boolean) => {
+    LiveModule.setPushOrientation(isPortrait);
+}
 
 subscribe = (event: keyof EVENT_TYPE, callback: (result: any) => void) => {
     if (event == 'PUSH_EVT_CONNECT_SUCC') {
@@ -210,5 +216,6 @@ export {
     setBeautyLevel,
     setWhitenessLevel,
     setRuddinessLevel,
+    setPushOrientation,
     subscribe
 };

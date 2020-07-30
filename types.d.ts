@@ -104,6 +104,7 @@ declare const LivePushManager: {
     setBeautyLevel: (level: number) => void;
     setWhitenessLevel: (level: number) => void;
     setRuddinessLevel: (level: number) => void;
+    setPushOrientation: (isPortrait: boolean) => void,
     setManualFocus: (enabled: boolean) => void;
 
     //创建监听事件

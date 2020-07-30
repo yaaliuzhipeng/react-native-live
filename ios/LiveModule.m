@@ -139,7 +139,11 @@ RCT_EXPORT_METHOD(setRuddinessLevel:(float)level)
   [shared setRuddinessLevel:level];
 }
 
-
+//设置推流方向
+RCT_EXPORT_METHOD(setPushOrientation:(BOOL)isPortrait)
+{
+    [[LiveManager shared] setPushOrientation:isPortrait];
+}
 
 
 

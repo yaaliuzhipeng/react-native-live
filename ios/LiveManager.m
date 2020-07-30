@@ -291,4 +291,18 @@ static LiveManager *_instance = nil;
     
 }
 
+#pragma mark 设置推流方向
+-(void) setPushOrientation:(BOOL) isPortrait
+{
+    if(isPortrait == YES) {
+        self._config.homeOrientation = HOME_ORIENTATION_DOWN;
+        [self._pusher setConfig:self._config];
+        [self._pusher setRenderRotation:0];
+    }else{
+        self._config.homeOrientation = HOME_ORIENTATION_RIGHT;
+        [self._pusher setConfig:self._config];
+        [self._pusher setRenderRotation:90];
+    }
+}
+
 @end

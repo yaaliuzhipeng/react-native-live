@@ -105,6 +105,11 @@ public class LiveModule extends ReactContextBaseJavaModule {
         _liveManager.setRuddinessLevel(level);
     }
 
+    @ReactMethod
+    public void setPushOrientation(Boolean isPortrait){
+        _liveManager.setPushOrientation(isPortrait);
+    }
+
     // ========== 拉流部分方法
 
     @ReactMethod

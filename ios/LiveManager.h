@@ -43,6 +43,7 @@
 - (void) setBeautyLevel: (float) level;
 - (void) setWhitenessLevel: (float) level;
 - (void) setRuddinessLevel: (float) level;
+- (void) setPushOrientation: (BOOL) isPortrait;
 
 @end
 

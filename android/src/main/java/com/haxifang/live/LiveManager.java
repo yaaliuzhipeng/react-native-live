@@ -6,6 +6,7 @@ import android.view.Choreographer;
 import android.view.View;
 
 import com.tencent.rtmp.TXLiveBase;
+import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.TXLivePushConfig;
 import com.tencent.rtmp.TXLivePusher;
@@ -359,6 +360,23 @@ public class LiveManager {
             if(level < 0) value = 0;
             value = Math.min(level, 9);
             this._pusher.getBeautyManager().setRuddyLevel(value);
+        }
+    }
+
+    /**
+     * 设置横屏推流
+     */
+    public void setPushOrientation(boolean isPortrait){
+        if(isPortrait){
+            _config.setHomeOrientation(VIDEO_ANGLE_HOME_DOWN);
+            _pusher.setConfig(_config);
+            _pusher.setRenderRotation(0);
+        }else{
+            _config.setHomeOrientation(VIDEO_ANGLE_HOME_RIGHT);
+            _pusher.setConfig(_config);
+
+            //为了保证本地渲染是正的、设置渲染角度为90度
+            _pusher.setRenderRotation(90);
         }
     }
 
