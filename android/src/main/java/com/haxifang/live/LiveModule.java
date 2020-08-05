@@ -51,7 +51,7 @@ public class LiveModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void stopLivePush(){
+    public void stopPush(){
         _liveManager.stopPush();
     }
 
