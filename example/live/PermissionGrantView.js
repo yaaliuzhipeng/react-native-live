@@ -20,7 +20,6 @@ const PermissionGrantView = (props) => {
     const [cameracolor, setcameracolor] = useState(DEFAULT);
     const [microcolor, setmicrocolor] = useState(DEFAULT);
 
-
     function CameraCheck(){
         if (Platform.OS == 'android') {
             check(PERMISSIONS.ANDROID.CAMERA).then((result) => {
@@ -100,6 +99,7 @@ const PermissionGrantView = (props) => {
                     case RESULTS.GRANTED:
                         setmicrostatus(GRANT);
                         setmicrocolor(GREEN);
+                        console.log('grant??')
                         props.callback(); //关闭权限检查view
                         break;
                     case RESULTS.DENIED:
@@ -117,7 +117,6 @@ const PermissionGrantView = (props) => {
                                 }
                             })
                             .then(() => {
-                                
                                 if (camerastatus == GRANT && microstatus == GRANT) {
                                     props.callback(); //关闭权限检查view
                                 }

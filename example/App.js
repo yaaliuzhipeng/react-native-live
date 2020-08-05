@@ -33,7 +33,7 @@ function App(){
     // LivePullManager.liveSetupLicence
   }
 
-  return <PullRoom />
+  return <PushRoom />
 
   return (
     <View style={styles.container}>

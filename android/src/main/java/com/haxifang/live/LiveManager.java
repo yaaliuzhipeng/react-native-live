@@ -19,9 +19,11 @@ public class LiveManager {
     private static LiveManager _instance = new LiveManager();
 
     private LiveManager() {
+        Log.i(TAG, "LiveManager: 创建LiveManager实例");
     }
 
     public static LiveManager getInstance() {
+        Log.i(TAG, "getInstance: LiveManager单例状态: "+_instance);
         if (_instance == null) {
             _instance = new LiveManager();
         }
@@ -43,6 +45,7 @@ public class LiveManager {
      */
     // 初始化腾讯直播 SDK License 授权方法
     public void setLicence(Context context, String licenceUrl, String licenceKey) {
+        Log.i(TAG, "setLicence: licenseurl、key ++> "+licenceUrl+licenceKey);
         TXLiveBase.getInstance().setLicence(context, licenceUrl, licenceKey);
     }
 

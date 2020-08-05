@@ -73,7 +73,7 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
-    implementation 'com.tencent.liteavsdk:LiteAVSDK_Smart:latest.release'
+    implementation 'com.tencent.liteavsdk:LiteAVSDK_Smart:7.4.+'
 }
 
 def configureReactNativePom(def pom) {

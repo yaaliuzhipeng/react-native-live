@@ -16,6 +16,7 @@ public class LiveModule extends ReactContextBaseJavaModule {
 
     public LiveModule(ReactApplicationContext context){
         super(context);
+        Log.i("TAG", "LiveModule: 创建livemodule实例");
         reactApplicationContext = context;
         reactContext = context;
         _liveManager = LiveManager.getInstance();

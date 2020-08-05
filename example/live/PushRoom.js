@@ -8,10 +8,11 @@ const PushURL = "rtmp://bxdx-livepush.haxibiao.cn/live/u8l8?txSecret=3f16f36bab5
 
 export default function PushRoom() {
 
-    const [showPush, setshowpush] = useState(true);
-    const [state,setstate] = useState("未开始");
+    const [showPush, setshowpush] = useState(false);
+    const [state, setstate] = useState("未开始");
 
     const __showPushCallback = () => {
+        console.log("切换视图？？？")
         setshowpush(true)
         LivePushManager.preview()
     }
@@ -24,7 +25,8 @@ export default function PushRoom() {
 
     const startPush = () => {
         setstate("开始推流")
-        LivePushManager.startPush(PushURL)
+        setshowpush(true);
+        //LivePushManager.startPush(PushURL)
     }
 
     return (
@@ -40,7 +42,7 @@ export default function PushRoom() {
                 style={{ position: 'absolute', bottom: sh * 0.3, right: 15 }}
                 onPress={beauty}>
                 <View style={{ paddingHorizontal: 10, paddingVertical: 5, borderRadius: 12, overflow: 'hidden', backgroundColor: '#ffffffcc' }}>
-        <Text>{state}</Text>
+                    <Text>{state}</Text>
                 </View>
 
             </View>
