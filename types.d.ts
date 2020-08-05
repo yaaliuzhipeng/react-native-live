@@ -85,7 +85,7 @@ declare const LivePullManager: {
         RTMP: LIVE_TYPE,
         FLV: LIVE_TYPE;
     },
-    subscrib: (event: keyof EVENT_TYPE, callback: (result: any) => void) => EmitterSubscription;
+    subscribe: (event: keyof EVENT_TYPE, callback: (result: any) => void) => EmitterSubscription;
 };
 
 
