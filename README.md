@@ -3,19 +3,13 @@
 #### 安装方法 🔨
 
 ```
-yarn add git+http://code.haxibiao.cn/packages/react-native-live.git
+yarn add git+https://github.com/yaaliuzhipeng/react-native-live.git
 ```
 
 或者
 
 ```
-npm install -D git+http://code.haxibiao.cn/packages/react-native-live.git
-```
-
-或者在项目 package.json 的 dependencies 下添加一行
-
-```
-"react-native-tencent-live":"git+http://code.haxibiao.cn/packages/react-native-live.git"
+npm install -D git+https://github.com/yaaliuzhipeng/react-native-live.git
 ```
 
 ### 更新模块
